@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.14" />
   
   <script>
    var _hmt = _hmt || [];
@@ -211,7 +211,8 @@ hugo有很多<a href="https://github.com/spf13/hugoThemes">皮肤(Github)</a>,�
 </code></pre>
 
 <p>theme指明使用的主题名称（themes文件夹下的主题文件夹名称），buildDrafts指出编译草稿部分（即draft=true的文件），watch参数可以在文件修改时实时自动刷新页面。生成后我们可以在按照命令行提示在浏览器中输入<a href="http://127.0.0.1:1313">http://127.0.0.1:1313</a>查看页面，正常的话显示如下：
-<img src="https://ooo.0o0.ooo/2015/11/14/5647fabd8356f.jpg" alt="hyde1.jpg" /></p>
+<img src="https://ooo.0o0.ooo/2015/11/14/5647fabd8356f.jpg" alt="hyde1.jpg" />
+</p>
 
 <p><h3 id="2.4">2.4 简单配置</h3>
 目前为止，已经生成一个简单的静态站点，但是还有很多地方需要修改，以适应每个人的需求，可以在www站点根目录下看到一个<code>config.toml</code>配置文件，该文件使用TOML语法编写，基本内容如下：</p>
@@ -234,7 +235,8 @@ theme = &quot;hyde&quot;#default theme
 </code></pre>
 
 <p>重新根目录运行<code>hugo server --theme=hyde --buildDrafts --watch</code>看看效果：
-<img src="https://ooo.0o0.ooo/2015/11/14/5647fffd5519a.jpg" alt="hyde2.jpg" /></p>
+<img src="https://ooo.0o0.ooo/2015/11/14/5647fffd5519a.jpg" alt="hyde2.jpg" />
+</p>
 
 <p><h2 id="3">3.高级配置</h2>
 由于之前已经设置默认主题，我们再来用<code>hugo new post/sencond.md</code>新建一篇文章看看有什么区别：</p>
@@ -286,7 +288,7 @@ hyde主题默认使用disqus插件，是国外的一种使用javascript编写的
 <p>最后在<code>www/config.toml</code>文件中的<code>[params]</code>下加入<code>duoshuoShortname = &quot;你的多说用户名&quot;</code>，这样我们再次调试站点可以看到每篇文章的下面都有一个多说评论框，其他人可以使用这个评论框评论文章。</p>
 
 <p><h3 id="3.2">3.2 代码高亮</h3>
-官方推荐使用Pygments来进行代码高亮的支持，我使用了<a href="http://tonybai.com/2015/09/23/intro-of-gohugo/">Tony Bai</a>推荐的[highlight.js][10],用起来很顺手，目前最新的版本是8.9.1,只要下载常用代码的高亮支持即可，是一个zip的压缩文件包，内容如下：</p>
+官方推荐使用Pygments来进行代码高亮的支持，我使用了<a href="http://tonybai.com/2015/09/23/intro-of-gohugo/">Tony Bai</a>推荐的<a href="https://highlightjs.org/">highlight.js</a>,用起来很顺手，目前最新的版本是8.9.1,只要下载常用代码的高亮支持即可，是一个zip的压缩文件包，内容如下：</p>
 
 <pre><code>▸ styles/
   CHANGES.MD
@@ -328,8 +330,6 @@ git push -u origin master
 
 <p><h2 id="4">4.后记</h2>
 之前想自己写博客，觉得自己搭建东西放心点，就在网上搜索了相关方法，最后锁定到hugo这个软件，花了一个晚上熟悉网上各位大神的说明文档，自己一步步搭建起来的，后面用了一个上午的时间写了这篇文章总结了自己搭建的方法和过程，如有问题还望评论提问，如有错误一并指正。</p>
-
-<p>[10]:<a href="https://highlightjs.org/">https://highlightjs.org/</a></p>
 
 			</div>
 

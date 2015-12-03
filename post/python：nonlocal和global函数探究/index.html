@@ -3,7 +3,7 @@
 <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.14" />
   
   <script>
    var _hmt = _hmt || [];
@@ -71,7 +71,7 @@
 			      
 
 <blockquote>
-<p>在Python3.5.0官方的《 The Python Tutorial》（官方指南）里讲解“类”的章节，出现了nonlocal函数和global函数，两个函数都是为了改变变量的作用域，但是直接看例子也没有理解差别，就去看了《The Python Language Reference》里面<a href="https://docs.python.org/3/reference/simple_stmts.html#global">7.12</a>和[7.13][2]关于<a href="https://docs.python.org/3/reference/simple_stmts.html#global">global</a>和[nonlocal][2]语句的详细说明和用法终于理解了，这里记录一下理解，以帮助自己记忆和以后的初学者理解。基本上翻译原文，但是具体的细节上，原文有讲的不清楚的地方，我按照自己的理解写清楚了。</p>
+<p>在Python3.5.0官方的《 The Python Tutorial》（官方指南）里讲解“类”的章节，出现了nonlocal函数和global函数，两个函数都是为了改变变量的作用域，但是直接看例子也没有理解差别，就去看了《The Python Language Reference》里面<a href="https://docs.python.org/3/reference/simple_stmts.html#global">7.12</a>和<a href="https://docs.python.org/3/reference/simple_stmts.html#nonlocal">7.13</a>关于<a href="https://docs.python.org/3/reference/simple_stmts.html#global">global</a>和<a href="https://docs.python.org/3/reference/simple_stmts.html#nonlocal">nonlocal</a>语句的详细说明和用法终于理解了，这里记录一下理解，以帮助自己记忆和以后的初学者理解。基本上翻译原文，但是具体的细节上，原文有讲的不清楚的地方，我按照自己的理解写清楚了。</p>
 </blockquote>
 
 <h2 id="1-python变量作用域与命名空间:876133ac4eeab6c369b294e022f2bdca">1.Python变量作用域与命名空间</h2>
@@ -172,8 +172,6 @@ scope_test()
 After nonlocal assignment: nonlocal spam of do_nonlocal
 After nonlocal assignment, scope_test's spam: local spam of scope_test
 </code></pre>
-
-<p>[2]:<a href="https://docs.python.org/3/reference/simple_stmts.html#nonlocal">https://docs.python.org/3/reference/simple_stmts.html#nonlocal</a></p>
 
 			</div>
 

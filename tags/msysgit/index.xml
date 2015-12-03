@@ -158,7 +158,8 @@ hugo有很多&lt;a href=&#34;https://github.com/spf13/hugoThemes&#34;&gt;皮肤(
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;theme指明使用的主题名称（themes文件夹下的主题文件夹名称），buildDrafts指出编译草稿部分（即draft=true的文件），watch参数可以在文件修改时实时自动刷新页面。生成后我们可以在按照命令行提示在浏览器中输入&lt;a href=&#34;http://127.0.0.1:1313&#34;&gt;http://127.0.0.1:1313&lt;/a&gt;查看页面，正常的话显示如下：
-&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fabd8356f.jpg&#34; alt=&#34;hyde1.jpg&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fabd8356f.jpg&#34; alt=&#34;hyde1.jpg&#34; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;&lt;h3 id=&#34;2.4&#34;&gt;2.4 简单配置&lt;/h3&gt;
 目前为止，已经生成一个简单的静态站点，但是还有很多地方需要修改，以适应每个人的需求，可以在www站点根目录下看到一个&lt;code&gt;config.toml&lt;/code&gt;配置文件，该文件使用TOML语法编写，基本内容如下：&lt;/p&gt;
@@ -181,7 +182,8 @@ theme = &amp;quot;hyde&amp;quot;#default theme
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;重新根目录运行&lt;code&gt;hugo server --theme=hyde --buildDrafts --watch&lt;/code&gt;看看效果：
-&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fffd5519a.jpg&#34; alt=&#34;hyde2.jpg&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fffd5519a.jpg&#34; alt=&#34;hyde2.jpg&#34; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;&lt;h2 id=&#34;3&#34;&gt;3.高级配置&lt;/h2&gt;
 由于之前已经设置默认主题，我们再来用&lt;code&gt;hugo new post/sencond.md&lt;/code&gt;新建一篇文章看看有什么区别：&lt;/p&gt;
@@ -233,7 +235,7 @@ hyde主题默认使用disqus插件，是国外的一种使用javascript编写的
 &lt;p&gt;最后在&lt;code&gt;www/config.toml&lt;/code&gt;文件中的&lt;code&gt;[params]&lt;/code&gt;下加入&lt;code&gt;duoshuoShortname = &amp;quot;你的多说用户名&amp;quot;&lt;/code&gt;，这样我们再次调试站点可以看到每篇文章的下面都有一个多说评论框，其他人可以使用这个评论框评论文章。&lt;/p&gt;
 
 &lt;p&gt;&lt;h3 id=&#34;3.2&#34;&gt;3.2 代码高亮&lt;/h3&gt;
-官方推荐使用Pygments来进行代码高亮的支持，我使用了&lt;a href=&#34;http://tonybai.com/2015/09/23/intro-of-gohugo/&#34;&gt;Tony Bai&lt;/a&gt;推荐的[highlight.js][10],用起来很顺手，目前最新的版本是8.9.1,只要下载常用代码的高亮支持即可，是一个zip的压缩文件包，内容如下：&lt;/p&gt;
+官方推荐使用Pygments来进行代码高亮的支持，我使用了&lt;a href=&#34;http://tonybai.com/2015/09/23/intro-of-gohugo/&#34;&gt;Tony Bai&lt;/a&gt;推荐的&lt;a href=&#34;https://highlightjs.org/&#34;&gt;highlight.js&lt;/a&gt;,用起来很顺手，目前最新的版本是8.9.1,只要下载常用代码的高亮支持即可，是一个zip的压缩文件包，内容如下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;▸ styles/
   CHANGES.MD
@@ -275,8 +277,6 @@ git push -u origin master
 
 &lt;p&gt;&lt;h2 id=&#34;4&#34;&gt;4.后记&lt;/h2&gt;
 之前想自己写博客，觉得自己搭建东西放心点，就在网上搜索了相关方法，最后锁定到hugo这个软件，花了一个晚上熟悉网上各位大神的说明文档，自己一步步搭建起来的，后面用了一个上午的时间写了这篇文章总结了自己搭建的方法和过程，如有问题还望评论提问，如有错误一并指正。&lt;/p&gt;
-
-&lt;p&gt;[10]:&lt;a href=&#34;https://highlightjs.org/&#34;&gt;https://highlightjs.org/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

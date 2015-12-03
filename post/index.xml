@@ -100,7 +100,7 @@ pip install virtualenv
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;本文转载自&lt;a href=&#34;http://rock3.info/blog/2013/11/26/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E7%AF%87%E5%A5%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/&#34;&gt;Rock3的Linux博客&lt;/a&gt;，挺早的一个博文了，最近自己写博客之后才关注到，我觉得写的很好，有借鉴的意义，我这里只做了适当排版和修正，另外建议大家看这篇博客的同时看一下知乎上的一个回答：[你有什么相见恨晚的知识想推荐给年轻人？][2]里面采铜的“四象限图”答案，了解什么是长半衰期，这样你就知道你应该写什么样的博客，看什么样的博客了。&lt;/p&gt;
+&lt;p&gt;本文转载自&lt;a href=&#34;http://rock3.info/blog/2013/11/26/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E7%AF%87%E5%A5%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/&#34;&gt;Rock3的Linux博客&lt;/a&gt;，挺早的一个博文了，最近自己写博客之后才关注到，我觉得写的很好，有借鉴的意义，我这里只做了适当排版和修正，另外建议大家看这篇博客的同时看一下知乎上的一个回答：&lt;a href=&#34;http://www.zhihu.com/question/22238159&#34;&gt;你有什么相见恨晚的知识想推荐给年轻人？&lt;/a&gt;里面采铜的“四象限图”答案，了解什么是长半衰期，这样你就知道你应该写什么样的博客，看什么样的博客了。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;在工作过程中，发现对很多东西都一知半解，不是很透彻，到头来很容易模糊，如果有一篇好的技术博客予以总结，一来即使忘记了，回过头来再看，仍然能够从自己的思路中恢复；二来总结一下，还会发现一些潜在问题；三来，有利于大家交流技术。很多大公司都有自己的内部技术博客平台，写好自己的技术博客，对一个技术人员来说，也有一定的成就感。在网上查阅资料，经常可以看到一些技术博客，要么废话连篇、排版紊乱，要么代码占了篇幅的60%，有些甚至是错的，会让人产生误解。因此，在这总结一下一篇好的技术博客应该是怎样的，同时也规整自己的不良习惯。本篇博客纯属个人的一点想法，是个原则性的东西，切忌逐条对号入座啊。&lt;/p&gt;
@@ -161,8 +161,6 @@ pip install virtualenv
 &lt;li&gt;考虑时间成本，博客基本上是以时间换知识，因此需要越来越快，记录时间也很必要。&lt;/li&gt;
 &lt;li&gt;列出遗留问题，以备以后解决。&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;[2]:&lt;a href=&#34;http://www.zhihu.com/question/22238159&#34;&gt;http://www.zhihu.com/question/22238159&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -175,7 +173,7 @@ pip install virtualenv
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;本来想自己谈一下Python函数实际参数的传递机制，但网上看了下有一篇文章写的挺好了，与我的理解相近就直接转载了，原文地址是&lt;a href=&#34;http://winterttr.me/2015/10/24/python-passing-arguments-as-value-or-reference/&#34;&gt;《Python的函数参数传递：传值？引用？》&lt;/a&gt;，作者是[winterTTr][2]，稍微修改了一点不通或是自己感觉可以进一步理解的地方，以下是正文。&lt;/p&gt;
+&lt;p&gt;本来想自己谈一下Python函数实际参数的传递机制，但网上看了下有一篇文章写的挺好了，与我的理解相近就直接转载了，原文地址是&lt;a href=&#34;http://winterttr.me/2015/10/24/python-passing-arguments-as-value-or-reference/&#34;&gt;《Python的函数参数传递：传值？引用？》&lt;/a&gt;，作者是&lt;a href=&#34;http://winterttr.me/about/&#34;&gt;winterTTr&lt;/a&gt;，稍微修改了一点不通或是自己感觉可以进一步理解的地方，以下是正文。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;我想，这个标题或许是很多初学者的问题。尤其是像我这样的对C/C++比较熟悉，刚刚进入python殿堂的朋友们。C/C++的函数参数的传递方式根深蒂固的影响着我们的思维–引用？传值？究竟是那种呢？语言的特性决定了使用的方法，那么，现在我们来探究一下python的函数参数传递方式。&lt;/p&gt;
@@ -206,7 +204,8 @@ lstFoo[0] = 2
 
 &lt;p&gt;代码第6行更改了list对象的第一个元素值，因为list是可变的，所以第一个原始变更为2。确切地说，不是变更，而是list的第一个元素指向了一个新的int型对象，就像刚刚说的不被引用的之前的int型对象会自动销毁。具体可以看下面的对比图：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/20/564fe1aac8be4.jpg&#34; alt=&#34;内存示意图&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/20/564fe1aac8be4.jpg&#34; alt=&#34;内存示意图&#34; /&gt;
+&lt;/p&gt;
 
 &lt;h2 id=&#34;python的函数参数传递-传值-引用:aa74a8d79dd81f1135cdfafa3350c174&#34;&gt;Python的函数参数传递：传值？引用？&lt;/h2&gt;
 
@@ -231,8 +230,6 @@ print nfoo #结果是[10]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;当传递给ChangeList的时候，变量仍旧按照“传值”的方式，复制了变量lstFoo 的值，于是a和lstFoo 指向同一个对象，但是，list是可以改变的对象，对a[0]的操作，就是对lstFoo指向的对象的内容的操作，于是，这时的a[0] = 10，就是更改了lstFoo 指向的对象的第一个元素，所以，再次输出lstFoo 时，显示[10]，内容被改变了，看起来，像C++中的传引用。&lt;/p&gt;
-
-&lt;p&gt;[2]:&lt;a href=&#34;http://winterttr.me/about/&#34;&gt;http://winterttr.me/about/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -245,7 +242,7 @@ print nfoo #结果是[10]
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;在Python3.5.0官方的《 The Python Tutorial》（官方指南）里讲解“类”的章节，出现了nonlocal函数和global函数，两个函数都是为了改变变量的作用域，但是直接看例子也没有理解差别，就去看了《The Python Language Reference》里面&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#global&#34;&gt;7.12&lt;/a&gt;和[7.13][2]关于&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#global&#34;&gt;global&lt;/a&gt;和[nonlocal][2]语句的详细说明和用法终于理解了，这里记录一下理解，以帮助自己记忆和以后的初学者理解。基本上翻译原文，但是具体的细节上，原文有讲的不清楚的地方，我按照自己的理解写清楚了。&lt;/p&gt;
+&lt;p&gt;在Python3.5.0官方的《 The Python Tutorial》（官方指南）里讲解“类”的章节，出现了nonlocal函数和global函数，两个函数都是为了改变变量的作用域，但是直接看例子也没有理解差别，就去看了《The Python Language Reference》里面&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#global&#34;&gt;7.12&lt;/a&gt;和&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#nonlocal&#34;&gt;7.13&lt;/a&gt;关于&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#global&#34;&gt;global&lt;/a&gt;和&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#nonlocal&#34;&gt;nonlocal&lt;/a&gt;语句的详细说明和用法终于理解了，这里记录一下理解，以帮助自己记忆和以后的初学者理解。基本上翻译原文，但是具体的细节上，原文有讲的不清楚的地方，我按照自己的理解写清楚了。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&#34;1-python变量作用域与命名空间:876133ac4eeab6c369b294e022f2bdca&#34;&gt;1.Python变量作用域与命名空间&lt;/h2&gt;
@@ -346,8 +343,6 @@ scope_test()
 After nonlocal assignment: nonlocal spam of do_nonlocal
 After nonlocal assignment, scope_test&#39;s spam: local spam of scope_test
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;[2]:&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#nonlocal&#34;&gt;https://docs.python.org/3/reference/simple_stmts.html#nonlocal&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -500,7 +495,8 @@ hugo有很多&lt;a href=&#34;https://github.com/spf13/hugoThemes&#34;&gt;皮肤(
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;theme指明使用的主题名称（themes文件夹下的主题文件夹名称），buildDrafts指出编译草稿部分（即draft=true的文件），watch参数可以在文件修改时实时自动刷新页面。生成后我们可以在按照命令行提示在浏览器中输入&lt;a href=&#34;http://127.0.0.1:1313&#34;&gt;http://127.0.0.1:1313&lt;/a&gt;查看页面，正常的话显示如下：
-&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fabd8356f.jpg&#34; alt=&#34;hyde1.jpg&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fabd8356f.jpg&#34; alt=&#34;hyde1.jpg&#34; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;&lt;h3 id=&#34;2.4&#34;&gt;2.4 简单配置&lt;/h3&gt;
 目前为止，已经生成一个简单的静态站点，但是还有很多地方需要修改，以适应每个人的需求，可以在www站点根目录下看到一个&lt;code&gt;config.toml&lt;/code&gt;配置文件，该文件使用TOML语法编写，基本内容如下：&lt;/p&gt;
@@ -523,7 +519,8 @@ theme = &amp;quot;hyde&amp;quot;#default theme
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;重新根目录运行&lt;code&gt;hugo server --theme=hyde --buildDrafts --watch&lt;/code&gt;看看效果：
-&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fffd5519a.jpg&#34; alt=&#34;hyde2.jpg&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fffd5519a.jpg&#34; alt=&#34;hyde2.jpg&#34; /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;&lt;h2 id=&#34;3&#34;&gt;3.高级配置&lt;/h2&gt;
 由于之前已经设置默认主题，我们再来用&lt;code&gt;hugo new post/sencond.md&lt;/code&gt;新建一篇文章看看有什么区别：&lt;/p&gt;
@@ -575,7 +572,7 @@ hyde主题默认使用disqus插件，是国外的一种使用javascript编写的
 &lt;p&gt;最后在&lt;code&gt;www/config.toml&lt;/code&gt;文件中的&lt;code&gt;[params]&lt;/code&gt;下加入&lt;code&gt;duoshuoShortname = &amp;quot;你的多说用户名&amp;quot;&lt;/code&gt;，这样我们再次调试站点可以看到每篇文章的下面都有一个多说评论框，其他人可以使用这个评论框评论文章。&lt;/p&gt;
 
 &lt;p&gt;&lt;h3 id=&#34;3.2&#34;&gt;3.2 代码高亮&lt;/h3&gt;
-官方推荐使用Pygments来进行代码高亮的支持，我使用了&lt;a href=&#34;http://tonybai.com/2015/09/23/intro-of-gohugo/&#34;&gt;Tony Bai&lt;/a&gt;推荐的[highlight.js][10],用起来很顺手，目前最新的版本是8.9.1,只要下载常用代码的高亮支持即可，是一个zip的压缩文件包，内容如下：&lt;/p&gt;
+官方推荐使用Pygments来进行代码高亮的支持，我使用了&lt;a href=&#34;http://tonybai.com/2015/09/23/intro-of-gohugo/&#34;&gt;Tony Bai&lt;/a&gt;推荐的&lt;a href=&#34;https://highlightjs.org/&#34;&gt;highlight.js&lt;/a&gt;,用起来很顺手，目前最新的版本是8.9.1,只要下载常用代码的高亮支持即可，是一个zip的压缩文件包，内容如下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;▸ styles/
   CHANGES.MD
@@ -617,8 +614,6 @@ git push -u origin master
 
 &lt;p&gt;&lt;h2 id=&#34;4&#34;&gt;4.后记&lt;/h2&gt;
 之前想自己写博客，觉得自己搭建东西放心点，就在网上搜索了相关方法，最后锁定到hugo这个软件，花了一个晚上熟悉网上各位大神的说明文档，自己一步步搭建起来的，后面用了一个上午的时间写了这篇文章总结了自己搭建的方法和过程，如有问题还望评论提问，如有错误一并指正。&lt;/p&gt;
-
-&lt;p&gt;[10]:&lt;a href=&#34;https://highlightjs.org/&#34;&gt;https://highlightjs.org/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

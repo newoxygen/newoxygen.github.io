@@ -18,7 +18,7 @@
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;本文转载自&lt;a href=&#34;http://rock3.info/blog/2013/11/26/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E7%AF%87%E5%A5%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/&#34;&gt;Rock3的Linux博客&lt;/a&gt;，挺早的一个博文了，最近自己写博客之后才关注到，我觉得写的很好，有借鉴的意义，我这里只做了适当排版和修正，另外建议大家看这篇博客的同时看一下知乎上的一个回答：[你有什么相见恨晚的知识想推荐给年轻人？][2]里面采铜的“四象限图”答案，了解什么是长半衰期，这样你就知道你应该写什么样的博客，看什么样的博客了。&lt;/p&gt;
+&lt;p&gt;本文转载自&lt;a href=&#34;http://rock3.info/blog/2013/11/26/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E7%AF%87%E5%A5%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/&#34;&gt;Rock3的Linux博客&lt;/a&gt;，挺早的一个博文了，最近自己写博客之后才关注到，我觉得写的很好，有借鉴的意义，我这里只做了适当排版和修正，另外建议大家看这篇博客的同时看一下知乎上的一个回答：&lt;a href=&#34;http://www.zhihu.com/question/22238159&#34;&gt;你有什么相见恨晚的知识想推荐给年轻人？&lt;/a&gt;里面采铜的“四象限图”答案，了解什么是长半衰期，这样你就知道你应该写什么样的博客，看什么样的博客了。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;在工作过程中，发现对很多东西都一知半解，不是很透彻，到头来很容易模糊，如果有一篇好的技术博客予以总结，一来即使忘记了，回过头来再看，仍然能够从自己的思路中恢复；二来总结一下，还会发现一些潜在问题；三来，有利于大家交流技术。很多大公司都有自己的内部技术博客平台，写好自己的技术博客，对一个技术人员来说，也有一定的成就感。在网上查阅资料，经常可以看到一些技术博客，要么废话连篇、排版紊乱，要么代码占了篇幅的60%，有些甚至是错的，会让人产生误解。因此，在这总结一下一篇好的技术博客应该是怎样的，同时也规整自己的不良习惯。本篇博客纯属个人的一点想法，是个原则性的东西，切忌逐条对号入座啊。&lt;/p&gt;
@@ -79,8 +79,6 @@
 &lt;li&gt;考虑时间成本，博客基本上是以时间换知识，因此需要越来越快，记录时间也很必要。&lt;/li&gt;
 &lt;li&gt;列出遗留问题，以备以后解决。&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;[2]:&lt;a href=&#34;http://www.zhihu.com/question/22238159&#34;&gt;http://www.zhihu.com/question/22238159&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -93,7 +91,7 @@
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;本来想自己谈一下Python函数实际参数的传递机制，但网上看了下有一篇文章写的挺好了，与我的理解相近就直接转载了，原文地址是&lt;a href=&#34;http://winterttr.me/2015/10/24/python-passing-arguments-as-value-or-reference/&#34;&gt;《Python的函数参数传递：传值？引用？》&lt;/a&gt;，作者是[winterTTr][2]，稍微修改了一点不通或是自己感觉可以进一步理解的地方，以下是正文。&lt;/p&gt;
+&lt;p&gt;本来想自己谈一下Python函数实际参数的传递机制，但网上看了下有一篇文章写的挺好了，与我的理解相近就直接转载了，原文地址是&lt;a href=&#34;http://winterttr.me/2015/10/24/python-passing-arguments-as-value-or-reference/&#34;&gt;《Python的函数参数传递：传值？引用？》&lt;/a&gt;，作者是&lt;a href=&#34;http://winterttr.me/about/&#34;&gt;winterTTr&lt;/a&gt;，稍微修改了一点不通或是自己感觉可以进一步理解的地方，以下是正文。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;我想，这个标题或许是很多初学者的问题。尤其是像我这样的对C/C++比较熟悉，刚刚进入python殿堂的朋友们。C/C++的函数参数的传递方式根深蒂固的影响着我们的思维–引用？传值？究竟是那种呢？语言的特性决定了使用的方法，那么，现在我们来探究一下python的函数参数传递方式。&lt;/p&gt;
@@ -124,7 +122,8 @@ lstFoo[0] = 2
 
 &lt;p&gt;代码第6行更改了list对象的第一个元素值，因为list是可变的，所以第一个原始变更为2。确切地说，不是变更，而是list的第一个元素指向了一个新的int型对象，就像刚刚说的不被引用的之前的int型对象会自动销毁。具体可以看下面的对比图：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/20/564fe1aac8be4.jpg&#34; alt=&#34;内存示意图&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/20/564fe1aac8be4.jpg&#34; alt=&#34;内存示意图&#34; /&gt;
+&lt;/p&gt;
 
 &lt;h2 id=&#34;python的函数参数传递-传值-引用:aa74a8d79dd81f1135cdfafa3350c174&#34;&gt;Python的函数参数传递：传值？引用？&lt;/h2&gt;
 
@@ -149,8 +148,6 @@ print nfoo #结果是[10]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;当传递给ChangeList的时候，变量仍旧按照“传值”的方式，复制了变量lstFoo 的值，于是a和lstFoo 指向同一个对象，但是，list是可以改变的对象，对a[0]的操作，就是对lstFoo指向的对象的内容的操作，于是，这时的a[0] = 10，就是更改了lstFoo 指向的对象的第一个元素，所以，再次输出lstFoo 时，显示[10]，内容被改变了，看起来，像C++中的传引用。&lt;/p&gt;
-
-&lt;p&gt;[2]:&lt;a href=&#34;http://winterttr.me/about/&#34;&gt;http://winterttr.me/about/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
