@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flask on 氧气计算</title>
+    <link>http://newoxygen.github.io/categories/flask/</link>
+    <description>Recent content in Flask on 氧气计算</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 03 Dec 2015 19:09:53 +0800</lastBuildDate>
+    <atom:link href="http://newoxygen.github.io/categories/flask/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>flask安装小结</title>
+      <link>http://newoxygen.github.io/post/flask%E5%AE%89%E8%A3%85%E5%B0%8F%E7%BB%93/</link>
+      <pubDate>Thu, 03 Dec 2015 19:09:53 +0800</pubDate>
+      
+      <guid>http://newoxygen.github.io/post/flask%E5%AE%89%E8%A3%85%E5%B0%8F%E7%BB%93/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;flask是一个微型的python web框架，他基于Werkzeug和Jinja2，提供了一个包含基础服务
+的强健核心，数据库访问、web表单验证和用户认证等高级功能则需要安装额外的扩展来支
+持。学过一段时间flask后回过头来总结一下如何在Windows和Linux下安装flask。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;linux下安装flask:abffa364279d81f534aa98a2cc79ce6e&#34;&gt;Linux下安装flask&lt;/h2&gt;
+
+&lt;p&gt;很简单，我使用的是Ubuntu 14.04_amd64的系统，默认的python是2.7.6，所以不用安装
+python了，首先输入下列命令安装virtualenv（新系统默认未安装）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install python-virtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装成功后可以输入&lt;code&gt;virtualenv --version&lt;/code&gt;命令验证，正常的话应该显示virtualenv的版
+本号。然后新建一个本地调试用的文件夹，并创建本地虚拟环境：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd ~
+sudo mkdir flask_site
+cd flask_site
+virtualenv venv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;本地虚拟环境venv创建成功后会自动安装pip，在flask_site目录下输入
+&lt;code&gt;. venv\bin\activate&lt;/code&gt;即可启动本地虚拟环境，命令行提示符变为(venv)$，保持本地虚拟
+环境开启状态，这样就可以在本地虚拟环境中通过pip安装flask了：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pip install flask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;有时能够正常下载安装，有时则会由于一些众所周知的原因无法访问pipy，这样的话我们就
+得需要换一个国内的pipy镜像，需要按照如下格式修改&lt;code&gt;/home/.pip/pip.conf&lt;/code&gt;文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[global]
+index-url =  http://mirrors.aliyun.com/pypi/simple/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;值得注意的是，&lt;code&gt;.pip&lt;/code&gt;文件夹是隐藏的，所以在图形界面下默认是看不见的，需要在上面菜
+单中设置&lt;code&gt;显示隐藏的文件&lt;/code&gt;，或者直接命令行里编辑好保存即可。另外国内的镜像有很多，
+有时候也可能存在长期没人维护挂掉的情况，换一个就可以了。
+为了验证flask是否安装成功，可以命令行输入&lt;code&gt;python&lt;/code&gt;进入python交互模式，
+输入&lt;code&gt;import flask&lt;/code&gt;（注意，这些操作也都是在本地虚拟环境开启的情况下进行的）后如果
+没有告警就说明flask安装成功了，如果要退出本地虚拟环境，可以在linux终端里输入
+&lt;code&gt;deactivate&lt;/code&gt;即可。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;注&lt;/strong&gt;：virtualenv用于创建一个独立封闭的Python虚拟环境，你可以在这个环境中安装
+私有包，而不会影响系统中的全局Python环境和其他虚拟环境，避免包的混乱和版本的冲突。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;windows下安装flask:abffa364279d81f534aa98a2cc79ce6e&#34;&gt;Windows下安装flask&lt;/h2&gt;
+
+&lt;p&gt;Windows下需要先到Python官网上下载一个安装文件安装Python，我使用的是Python2.7.10，
+安装完成后需要把以下内容加入到环境变量Path中：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;;C:\Python27;C:\Python27\Scripts
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;环境变量设置位置：我的电脑右键属性-高级系统设置-环境变量-点击Path编辑，分号是必
+须的。&lt;/p&gt;
+
+&lt;p&gt;设置好环境变量后，我们可以使用easy_install安装pip，然后利用pip安装virtualenv：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;easy_install pip
+pip install virtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;同样可以使用前面在Linux下的验证方法验证virtualenv是否安装成功，接着创建一个本地
+的虚拟环境（命令和linux一样），只是启动方式不一样，&lt;code&gt;venv\Scripts\activate&lt;/code&gt;，正
+常启动后pip安装flask，然后在Python交互模式下验证，退出虚拟环境也是在命令行下输入
+&lt;code&gt;deactivate&lt;/code&gt;。enjoy flask and python!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

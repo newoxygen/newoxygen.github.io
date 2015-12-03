@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>函数 on 氧气计算</title>
+    <link>http://newoxygen.github.io/tags/%E5%87%BD%E6%95%B0/</link>
+    <description>Recent content in 函数 on 氧气计算</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Nov 2015 14:39:09 +0800</lastBuildDate>
+    <atom:link href="http://newoxygen.github.io/tags/%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>转-Python的函数参数传递：传值？引用？</title>
+      <link>http://newoxygen.github.io/post/%E8%BD%AC-Python%E7%9A%84%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%EF%BC%9A%E4%BC%A0%E5%80%BC%EF%BC%9F%E5%BC%95%E7%94%A8%EF%BC%9F/</link>
+      <pubDate>Fri, 20 Nov 2015 14:39:09 +0800</pubDate>
+      
+      <guid>http://newoxygen.github.io/post/%E8%BD%AC-Python%E7%9A%84%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%EF%BC%9A%E4%BC%A0%E5%80%BC%EF%BC%9F%E5%BC%95%E7%94%A8%EF%BC%9F/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;本来想自己谈一下Python函数实际参数的传递机制，但网上看了下有一篇文章写的挺好了，与我的理解相近就直接转载了，原文地址是&lt;a href=&#34;http://winterttr.me/2015/10/24/python-passing-arguments-as-value-or-reference/&#34;&gt;《Python的函数参数传递：传值？引用？》&lt;/a&gt;，作者是[winterTTr][2]，稍微修改了一点不通或是自己感觉可以进一步理解的地方，以下是正文。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我想，这个标题或许是很多初学者的问题。尤其是像我这样的对C/C++比较熟悉，刚刚进入python殿堂的朋友们。C/C++的函数参数的传递方式根深蒂固的影响着我们的思维–引用？传值？究竟是那种呢？语言的特性决定了使用的方法，那么，现在我们来探究一下python的函数参数传递方式。&lt;/p&gt;
+
+&lt;h2 id=&#34;对象vs变量:aa74a8d79dd81f1135cdfafa3350c174&#34;&gt;对象VS变量&lt;/h2&gt;
+
+&lt;p&gt;在python中，对象有类型，变量是没有类型的，这正是python这种动态的语言特性，即不需要变量声明，这也是吸引着很多pythoner的一点。所有的变量都可以理解是内存中一个对象的“引用”，或者，也可以看似c中void*的感觉。所以，希望大家在看到一个python变量的时候，把变量和真正的内存对象分开。
+&amp;gt;对象有类型，变量没有类型。
+这样，很多问题就容易思考了。例如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nfoo = 1       #变量nfoo指向一个int类型的对象，值为1
+lstFoo = [1]   #变量lsrFoo指向一个list类型的对象，有一个元素lstFoo[0]，值为1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;可变-mutable-与不可变-immutable-对象:aa74a8d79dd81f1135cdfafa3350c174&#34;&gt;可变(mutable)与不可变(immutable)对象&lt;/h2&gt;
+
+&lt;p&gt;对应于上一个概念，就必须引出另一个概念，这就是可变（mutable）对象与不可变（immutable）对象。对于python比较熟悉的人们都应该了解这个事实，在python中，strings, tuples, 和numbers是不可变的对象，而list,dict等则是可变的对象。那么，这些所谓的可变和不可变影响着什么呢？&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#可变
+nfoo = 1
+nfoo = 2
+#不可变
+lstFoo = [1]
+lstFoo[0] = 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;代码中第2行，内存中储存数值1的原始int对象不可改变，只是被『抛弃』，或者说『遗忘』，没有引用后被python的垃圾回收机制回收机制处理掉。然后变量nfoo指向一个新的int对象，值为2。&lt;/p&gt;
+
+&lt;p&gt;代码第6行更改了list对象的第一个元素值，因为list是可变的，所以第一个原始变更为2。确切地说，不是变更，而是list的第一个元素指向了一个新的int型对象，就像刚刚说的不被引用的之前的int型对象会自动销毁。具体可以看下面的对比图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/20/564fe1aac8be4.jpg&#34; alt=&#34;内存示意图&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;python的函数参数传递-传值-引用:aa74a8d79dd81f1135cdfafa3350c174&#34;&gt;Python的函数参数传递：传值？引用？&lt;/h2&gt;
+
+&lt;p&gt;对于变量（与对象相对的概念），python函数参数传递可以理解为就是变量传值操作，用C++的方式理解，就是对void*赋值。如果这个变量的值不可变，我们看似就是引用，如果这个变量的值可变，我们看着像是在赋值。有点晕是吧，我们仍旧举个例子。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;不可变对象参数调用
+def ChangeInt(a):
+    a = 10
+nfoo = 2 
+ChangeInt(nfoo)
+print nfoo #结果是2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这时发生了什么，有一个int对象2，和指向它的变量nfoo，当传递给ChangeInt的时候，按照传值的方式，复制了变量nfoo的值，这样，a就是nfoo指向同一个Int对象了，函数中a=10的时候，发生什么？（还记得我上面讲到的那些概念么），int是不能更改的对象，于是，做了一个新的int对象，&lt;strong&gt;局部变量a&lt;/strong&gt;指向它（但是此时，被变量nfoo指向的对象，没有发生变化），于是在外面的感觉就是函数没有改变nfoo的值，看起来像C++中的传值方式。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;可变对象参数调用
+def ChangeList( a ):
+    a[0] = 10
+lstFoo = [2]
+ChangeList(lstFoo )
+print nfoo #结果是[10]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当传递给ChangeList的时候，变量仍旧按照“传值”的方式，复制了变量lstFoo 的值，于是a和lstFoo 指向同一个对象，但是，list是可以改变的对象，对a[0]的操作，就是对lstFoo指向的对象的内容的操作，于是，这时的a[0] = 10，就是更改了lstFoo 指向的对象的第一个元素，所以，再次输出lstFoo 时，显示[10]，内容被改变了，看起来，像C++中的传引用。&lt;/p&gt;
+
+&lt;p&gt;[2]:&lt;a href=&#34;http://winterttr.me/about/&#34;&gt;http://winterttr.me/about/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

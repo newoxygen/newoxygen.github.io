@@ -1,0 +1,205 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+  
+  <script>
+   var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?530c74fbd32631385f1864649c662fe3";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  
+    <script src="http://newoxygen.github.io/js/highlight.js"></script>
+    <link rel="stylesheet" href="http://newoxygen.github.io/css/monokai.css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> python：nonlocal和global函数探究 &middot; 氧气计算 </title>
+
+  
+  <link rel="stylesheet" href="http://newoxygen.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://newoxygen.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://newoxygen.github.io/css/hyde.css">
+  <link rel="stylesheet" href="http://mmrath.com/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href="http://fonts.useso.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="氧气计算" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://newoxygen.github.io/"><h1>氧气计算</h1></a>
+      <p class="lead">
+       梦想没有截止日期 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/categories"><i class="fa fa-navicon (alias)"></i>     Categories</a> </li>
+      <li><a href="/tags"><i class="fa fa-tags"></i>     Tags</a> </li>
+      
+        <li><a href="/about/"><i class="fa fa-user"></i>     About me </a></li>
+      
+    </ul>
+
+    <p>&copy; 2015. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h2>python：nonlocal和global函数探究</h2>
+			  <span class="post-date">Tue, Nov 17, 2015</span>
+			      
+
+<blockquote>
+<p>在Python3.5.0官方的《 The Python Tutorial》（官方指南）里讲解“类”的章节，出现了nonlocal函数和global函数，两个函数都是为了改变变量的作用域，但是直接看例子也没有理解差别，就去看了《The Python Language Reference》里面<a href="https://docs.python.org/3/reference/simple_stmts.html#global">7.12</a>和[7.13][2]关于<a href="https://docs.python.org/3/reference/simple_stmts.html#global">global</a>和[nonlocal][2]语句的详细说明和用法终于理解了，这里记录一下理解，以帮助自己记忆和以后的初学者理解。基本上翻译原文，但是具体的细节上，原文有讲的不清楚的地方，我按照自己的理解写清楚了。</p>
+</blockquote>
+
+<h2 id="1-python变量作用域与命名空间:876133ac4eeab6c369b294e022f2bdca">1.Python变量作用域与命名空间</h2>
+
+<p>Python中能改变变量作用域的是关键字有def，class和lamda，其内部变量为封闭作用域；if/elif/else，while/for，try/except/else/finally等不改变变量的作用域，其内变量与外部变量作用域一致。</p>
+
+<p>变量的作用域指的是Python程序可以直接访问的命名空间，Python程序运行时会按顺序访问到4个命名空间，也就是4个层次的作用域，顺序如下：</p>
+
+<ol>
+<li>代码中最里面区域的命名空间，首先被搜索，包括了代码块最里面的局部变量；</li>
+<li>任何封闭作用域的函数，都是从最近的封闭作用域开始搜索的，这个既不是局部变量，也不是全家变量；</li>
+<li>接着搜索的区域是当前模块所在的全局变量的命名空间；</li>
+<li>最后搜索的区域是包含了内置名称的命名空间。</li>
+</ol>
+
+<h2 id="2-global语句:876133ac4eeab6c369b294e022f2bdca">2.global语句</h2>
+
+<p>global是一个声明语句，该声明在当前整个代码块中都有效。这意味着列在其后的所有标识符将被解析为全局有效的。尽管没有被global声明的自由变量也可以引用全局变量，但想要对全局变量赋值则必须先使用global关键字进行声明。使用global时有以下两条限制：</p>
+
+<ol>
+<li>在同一代码块中，列在global语句中的所有标识符不能在该global语句前出现（注意这是对同一层次的封闭作用域而言）。</li>
+<li>列在global 语句后的标识符不能被定义成形参，不能出现在for循环控制的目标、类定义和函数定义，或者import语句中。</li>
+</ol>
+
+<p>CPython实现细节：当前实现并未强制履行上面两条限制，但程序不应该滥用这种自由，因为未来的版本可能会强制履行它们或者不留痕迹的改变程序含义。</p>
+
+<p>注意：global对解析器而言是一个指令。它仅仅会作用于与global语句一同解析的代码。特别的一点，作为参数应用于内建函数exec()的字符串或代码对象中,如果包含 global语句，该语句不会对包含exec()函数调用的代码块产生任何副作用。同样的，作为exec()参数的字符串中的代码也不会受包含该exec()的代码块中的global语句影响。eval()与compile()函数也是如此。</p>
+
+<h2 id="3-nonlocal语句:876133ac4eeab6c369b294e022f2bdca">3.nonlocal语句</h2>
+
+<p>nonlocal是个声明语句，可以将它后面列出的标识符关联到最近的封闭作用域里定义过的同名变量（不包括全局变量，只是最近封闭作用域的变量），这很重要，因为默认情况下python是首先搜索本地命名空间的，这个语句可以让python搜索除了模块全局变量以外的变量，进行重新绑定。</p>
+
+<p>不同于在global语句，nonlocal只能将它后面所列标识符关联到封闭作用域中已经存在的绑定，因此重新绑定的变量它实际的作用域是不清楚的（这要看这个已经存在的变量本来在哪一层作用域，最后的代码示例说明了）。</p>
+
+<p>在nonlocal语句后的标识符不能与本地作用域中已经存在的绑定冲突（也就是在nonlocal语句同级作用域之前不能有相同标识符的声明）。</p>
+
+<h2 id="4-示例程序:876133ac4eeab6c369b294e022f2bdca">4.示例程序</h2>
+
+<p>官网上为了让读者理解local，nonlocal和global，有一个演示程序，我做了一些一些修改说明，方便看出程序演示目的：</p>
+
+<pre><code>def scope_test():
+    def do_local():
+        spam = &quot;local spam of do_local&quot;
+    def do_nonlocal():
+        nonlocal spam
+        spam = &quot;nonlocal spam of do_nonlocal&quot;
+    def do_global():
+        global spam
+        spam = &quot;global spam of do_global&quot;
+    spam = &quot;test spam of scope_test&quot;
+
+    #do_local函数内部的赋值不影响scope_test作用域的spam
+    do_local()
+    print(&quot;After local assignment:&quot;, spam)
+
+    #do_nonlocal函数内部的赋值影响scope_test作用域的spam，但是不影响全局的spam
+    do_nonlocal()
+    print(&quot;After nonlocal assignment:&quot;, spam)
+
+    #do_global函数内部的赋值影响全局的spam，但是不影响scope_test作用域的spam
+    do_global()
+    print(&quot;After global assignment:&quot;, spam)
+
+scope_test()
+print(&quot;In global scope:&quot;, spam)
+</code></pre>
+
+<p>正常的话，运行结果应该是：</p>
+
+<pre><code>After local assignment: test spam of scope_test
+After nonlocal assignment: nonlocal spam of do_nonlocal
+After global assignment: nonlocal spam of do_nonlocal
+In global scope: global spam of do_global
+</code></pre>
+
+<p>为了证明nolocal语句绑定的变量名的作用域是不确定的，我们可以修改下程序如下：</p>
+
+<pre><code>def scope_test():
+    spam = &quot;local spam of scope_test&quot;
+    def do_local():
+        spam = &quot;local spam of do_local&quot;
+        print(&quot;After local assignment:&quot;, spam)
+        def do_nonlocal():
+            #通过nonlocal声明将spam和最近的do_local模块下spam关联，所以作用域是do_local整个函数体，这与上一个的程序不同
+            nonlocal spam
+            spam = &quot;nonlocal spam of do_nonlocal&quot;
+        do_nonlocal()
+        print(&quot;After nonlocal assignment:&quot;,spam)
+    do_local()
+    print(&quot;After nonlocal assignment, scope_test's spam:&quot;,spam)
+
+scope_test()
+</code></pre>
+
+<p>正常的话，运行结果应该是：</p>
+
+<pre><code>After local assignment: local spam of do_local
+After nonlocal assignment: nonlocal spam of do_nonlocal
+After nonlocal assignment, scope_test's spam: local spam of scope_test
+</code></pre>
+
+<p>[2]:<a href="https://docs.python.org/3/reference/simple_stmts.html#nonlocal">https://docs.python.org/3/reference/simple_stmts.html#nonlocal</a></p>
+
+			</div>
+
+			
+				<h2>评论</h2>
+				
+<div class="ds-thread" data-thread-key="" data-title="python：nonlocal和global函数探究" data-url="http://newoxygen.github.io/post/python%EF%BC%9Anonlocal%E5%92%8Cglobal%E5%87%BD%E6%95%B0%E6%8E%A2%E7%A9%B6/"></div>
+
+
+
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"newoxygen"};
+
+    (function() {
+     var ds = document.createElement('script');
+     ds.type = 'text/javascript';ds.async = true;
+     ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+     ds.charset = 'UTF-8';
+     (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+     })();
+    </script>
+
+
+			
+		</div>
+
+  </body>
+</html>

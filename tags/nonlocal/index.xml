@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nonlocal on 氧气计算</title>
+    <link>http://newoxygen.github.io/tags/nonlocal/</link>
+    <description>Recent content in Nonlocal on 氧气计算</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Nov 2015 16:32:50 +0800</lastBuildDate>
+    <atom:link href="http://newoxygen.github.io/tags/nonlocal/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>python：nonlocal和global函数探究</title>
+      <link>http://newoxygen.github.io/post/python%EF%BC%9Anonlocal%E5%92%8Cglobal%E5%87%BD%E6%95%B0%E6%8E%A2%E7%A9%B6/</link>
+      <pubDate>Tue, 17 Nov 2015 16:32:50 +0800</pubDate>
+      
+      <guid>http://newoxygen.github.io/post/python%EF%BC%9Anonlocal%E5%92%8Cglobal%E5%87%BD%E6%95%B0%E6%8E%A2%E7%A9%B6/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;在Python3.5.0官方的《 The Python Tutorial》（官方指南）里讲解“类”的章节，出现了nonlocal函数和global函数，两个函数都是为了改变变量的作用域，但是直接看例子也没有理解差别，就去看了《The Python Language Reference》里面&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#global&#34;&gt;7.12&lt;/a&gt;和[7.13][2]关于&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#global&#34;&gt;global&lt;/a&gt;和[nonlocal][2]语句的详细说明和用法终于理解了，这里记录一下理解，以帮助自己记忆和以后的初学者理解。基本上翻译原文，但是具体的细节上，原文有讲的不清楚的地方，我按照自己的理解写清楚了。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;1-python变量作用域与命名空间:876133ac4eeab6c369b294e022f2bdca&#34;&gt;1.Python变量作用域与命名空间&lt;/h2&gt;
+
+&lt;p&gt;Python中能改变变量作用域的是关键字有def，class和lamda，其内部变量为封闭作用域；if/elif/else，while/for，try/except/else/finally等不改变变量的作用域，其内变量与外部变量作用域一致。&lt;/p&gt;
+
+&lt;p&gt;变量的作用域指的是Python程序可以直接访问的命名空间，Python程序运行时会按顺序访问到4个命名空间，也就是4个层次的作用域，顺序如下：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;代码中最里面区域的命名空间，首先被搜索，包括了代码块最里面的局部变量；&lt;/li&gt;
+&lt;li&gt;任何封闭作用域的函数，都是从最近的封闭作用域开始搜索的，这个既不是局部变量，也不是全家变量；&lt;/li&gt;
+&lt;li&gt;接着搜索的区域是当前模块所在的全局变量的命名空间；&lt;/li&gt;
+&lt;li&gt;最后搜索的区域是包含了内置名称的命名空间。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;2-global语句:876133ac4eeab6c369b294e022f2bdca&#34;&gt;2.global语句&lt;/h2&gt;
+
+&lt;p&gt;global是一个声明语句，该声明在当前整个代码块中都有效。这意味着列在其后的所有标识符将被解析为全局有效的。尽管没有被global声明的自由变量也可以引用全局变量，但想要对全局变量赋值则必须先使用global关键字进行声明。使用global时有以下两条限制：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在同一代码块中，列在global语句中的所有标识符不能在该global语句前出现（注意这是对同一层次的封闭作用域而言）。&lt;/li&gt;
+&lt;li&gt;列在global 语句后的标识符不能被定义成形参，不能出现在for循环控制的目标、类定义和函数定义，或者import语句中。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;CPython实现细节：当前实现并未强制履行上面两条限制，但程序不应该滥用这种自由，因为未来的版本可能会强制履行它们或者不留痕迹的改变程序含义。&lt;/p&gt;
+
+&lt;p&gt;注意：global对解析器而言是一个指令。它仅仅会作用于与global语句一同解析的代码。特别的一点，作为参数应用于内建函数exec()的字符串或代码对象中,如果包含 global语句，该语句不会对包含exec()函数调用的代码块产生任何副作用。同样的，作为exec()参数的字符串中的代码也不会受包含该exec()的代码块中的global语句影响。eval()与compile()函数也是如此。&lt;/p&gt;
+
+&lt;h2 id=&#34;3-nonlocal语句:876133ac4eeab6c369b294e022f2bdca&#34;&gt;3.nonlocal语句&lt;/h2&gt;
+
+&lt;p&gt;nonlocal是个声明语句，可以将它后面列出的标识符关联到最近的封闭作用域里定义过的同名变量（不包括全局变量，只是最近封闭作用域的变量），这很重要，因为默认情况下python是首先搜索本地命名空间的，这个语句可以让python搜索除了模块全局变量以外的变量，进行重新绑定。&lt;/p&gt;
+
+&lt;p&gt;不同于在global语句，nonlocal只能将它后面所列标识符关联到封闭作用域中已经存在的绑定，因此重新绑定的变量它实际的作用域是不清楚的（这要看这个已经存在的变量本来在哪一层作用域，最后的代码示例说明了）。&lt;/p&gt;
+
+&lt;p&gt;在nonlocal语句后的标识符不能与本地作用域中已经存在的绑定冲突（也就是在nonlocal语句同级作用域之前不能有相同标识符的声明）。&lt;/p&gt;
+
+&lt;h2 id=&#34;4-示例程序:876133ac4eeab6c369b294e022f2bdca&#34;&gt;4.示例程序&lt;/h2&gt;
+
+&lt;p&gt;官网上为了让读者理解local，nonlocal和global，有一个演示程序，我做了一些一些修改说明，方便看出程序演示目的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def scope_test():
+    def do_local():
+        spam = &amp;quot;local spam of do_local&amp;quot;
+    def do_nonlocal():
+        nonlocal spam
+        spam = &amp;quot;nonlocal spam of do_nonlocal&amp;quot;
+    def do_global():
+        global spam
+        spam = &amp;quot;global spam of do_global&amp;quot;
+    spam = &amp;quot;test spam of scope_test&amp;quot;
+
+    #do_local函数内部的赋值不影响scope_test作用域的spam
+    do_local()
+    print(&amp;quot;After local assignment:&amp;quot;, spam)
+
+    #do_nonlocal函数内部的赋值影响scope_test作用域的spam，但是不影响全局的spam
+    do_nonlocal()
+    print(&amp;quot;After nonlocal assignment:&amp;quot;, spam)
+
+    #do_global函数内部的赋值影响全局的spam，但是不影响scope_test作用域的spam
+    do_global()
+    print(&amp;quot;After global assignment:&amp;quot;, spam)
+
+scope_test()
+print(&amp;quot;In global scope:&amp;quot;, spam)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;正常的话，运行结果应该是：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;After local assignment: test spam of scope_test
+After nonlocal assignment: nonlocal spam of do_nonlocal
+After global assignment: nonlocal spam of do_nonlocal
+In global scope: global spam of do_global
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;为了证明nolocal语句绑定的变量名的作用域是不确定的，我们可以修改下程序如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def scope_test():
+    spam = &amp;quot;local spam of scope_test&amp;quot;
+    def do_local():
+        spam = &amp;quot;local spam of do_local&amp;quot;
+        print(&amp;quot;After local assignment:&amp;quot;, spam)
+        def do_nonlocal():
+            #通过nonlocal声明将spam和最近的do_local模块下spam关联，所以作用域是do_local整个函数体，这与上一个的程序不同
+            nonlocal spam
+            spam = &amp;quot;nonlocal spam of do_nonlocal&amp;quot;
+        do_nonlocal()
+        print(&amp;quot;After nonlocal assignment:&amp;quot;,spam)
+    do_local()
+    print(&amp;quot;After nonlocal assignment, scope_test&#39;s spam:&amp;quot;,spam)
+
+scope_test()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;正常的话，运行结果应该是：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;After local assignment: local spam of do_local
+After nonlocal assignment: nonlocal spam of do_nonlocal
+After nonlocal assignment, scope_test&#39;s spam: local spam of scope_test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;[2]:&lt;a href=&#34;https://docs.python.org/3/reference/simple_stmts.html#nonlocal&#34;&gt;https://docs.python.org/3/reference/simple_stmts.html#nonlocal&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

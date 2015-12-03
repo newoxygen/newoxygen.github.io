@@ -1,0 +1,172 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+  
+  <script>
+   var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?530c74fbd32631385f1864649c662fe3";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  
+    <script src="http://newoxygen.github.io/js/highlight.js"></script>
+    <link rel="stylesheet" href="http://newoxygen.github.io/css/monokai.css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> flask安装小结 &middot; 氧气计算 </title>
+
+  
+  <link rel="stylesheet" href="http://newoxygen.github.io/css/poole.css">
+  <link rel="stylesheet" href="http://newoxygen.github.io/css/syntax.css">
+  <link rel="stylesheet" href="http://newoxygen.github.io/css/hyde.css">
+  <link rel="stylesheet" href="http://mmrath.com/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href="http://fonts.useso.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="氧气计算" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://newoxygen.github.io/"><h1>氧气计算</h1></a>
+      <p class="lead">
+       梦想没有截止日期 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/categories"><i class="fa fa-navicon (alias)"></i>     Categories</a> </li>
+      <li><a href="/tags"><i class="fa fa-tags"></i>     Tags</a> </li>
+      
+        <li><a href="/about/"><i class="fa fa-user"></i>     About me </a></li>
+      
+    </ul>
+
+    <p>&copy; 2015. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h2>flask安装小结</h2>
+			  <span class="post-date">Thu, Dec 3, 2015</span>
+			      
+
+<blockquote>
+<p>flask是一个微型的python web框架，他基于Werkzeug和Jinja2，提供了一个包含基础服务
+的强健核心，数据库访问、web表单验证和用户认证等高级功能则需要安装额外的扩展来支
+持。学过一段时间flask后回过头来总结一下如何在Windows和Linux下安装flask。</p>
+</blockquote>
+
+<h2 id="linux下安装flask:abffa364279d81f534aa98a2cc79ce6e">Linux下安装flask</h2>
+
+<p>很简单，我使用的是Ubuntu 14.04_amd64的系统，默认的python是2.7.6，所以不用安装
+python了，首先输入下列命令安装virtualenv（新系统默认未安装）：</p>
+
+<pre><code>sudo apt-get install python-virtualenv
+</code></pre>
+
+<p>安装成功后可以输入<code>virtualenv --version</code>命令验证，正常的话应该显示virtualenv的版
+本号。然后新建一个本地调试用的文件夹，并创建本地虚拟环境：</p>
+
+<pre><code>cd ~
+sudo mkdir flask_site
+cd flask_site
+virtualenv venv
+</code></pre>
+
+<p>本地虚拟环境venv创建成功后会自动安装pip，在flask_site目录下输入
+<code>. venv\bin\activate</code>即可启动本地虚拟环境，命令行提示符变为(venv)$，保持本地虚拟
+环境开启状态，这样就可以在本地虚拟环境中通过pip安装flask了：</p>
+
+<pre><code>pip install flask
+</code></pre>
+
+<p>有时能够正常下载安装，有时则会由于一些众所周知的原因无法访问pipy，这样的话我们就
+得需要换一个国内的pipy镜像，需要按照如下格式修改<code>/home/.pip/pip.conf</code>文件：</p>
+
+<pre><code>[global]
+index-url =  http://mirrors.aliyun.com/pypi/simple/
+</code></pre>
+
+<p>值得注意的是，<code>.pip</code>文件夹是隐藏的，所以在图形界面下默认是看不见的，需要在上面菜
+单中设置<code>显示隐藏的文件</code>，或者直接命令行里编辑好保存即可。另外国内的镜像有很多，
+有时候也可能存在长期没人维护挂掉的情况，换一个就可以了。
+为了验证flask是否安装成功，可以命令行输入<code>python</code>进入python交互模式，
+输入<code>import flask</code>（注意，这些操作也都是在本地虚拟环境开启的情况下进行的）后如果
+没有告警就说明flask安装成功了，如果要退出本地虚拟环境，可以在linux终端里输入
+<code>deactivate</code>即可。</p>
+
+<blockquote>
+<p><strong>注</strong>：virtualenv用于创建一个独立封闭的Python虚拟环境，你可以在这个环境中安装
+私有包，而不会影响系统中的全局Python环境和其他虚拟环境，避免包的混乱和版本的冲突。</p>
+</blockquote>
+
+<h2 id="windows下安装flask:abffa364279d81f534aa98a2cc79ce6e">Windows下安装flask</h2>
+
+<p>Windows下需要先到Python官网上下载一个安装文件安装Python，我使用的是Python2.7.10，
+安装完成后需要把以下内容加入到环境变量Path中：</p>
+
+<pre><code>;C:\Python27;C:\Python27\Scripts
+</code></pre>
+
+<p>环境变量设置位置：我的电脑右键属性-高级系统设置-环境变量-点击Path编辑，分号是必
+须的。</p>
+
+<p>设置好环境变量后，我们可以使用easy_install安装pip，然后利用pip安装virtualenv：</p>
+
+<pre><code>easy_install pip
+pip install virtualenv
+</code></pre>
+
+<p>同样可以使用前面在Linux下的验证方法验证virtualenv是否安装成功，接着创建一个本地
+的虚拟环境（命令和linux一样），只是启动方式不一样，<code>venv\Scripts\activate</code>，正
+常启动后pip安装flask，然后在Python交互模式下验证，退出虚拟环境也是在命令行下输入
+<code>deactivate</code>。enjoy flask and python!</p>
+
+			</div>
+
+			
+				<h2>评论</h2>
+				
+<div class="ds-thread" data-thread-key="" data-title="flask安装小结" data-url="http://newoxygen.github.io/post/flask%E5%AE%89%E8%A3%85%E5%B0%8F%E7%BB%93/"></div>
+
+
+
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"newoxygen"};
+
+    (function() {
+     var ds = document.createElement('script');
+     ds.type = 'text/javascript';ds.async = true;
+     ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+     ds.charset = 'UTF-8';
+     (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+     })();
+    </script>
+
+
+			
+		</div>
+
+  </body>
+</html>

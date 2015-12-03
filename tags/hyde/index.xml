@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hyde on 氧气计算</title>
+    <link>http://newoxygen.github.io/tags/hyde/</link>
+    <description>Recent content in Hyde on 氧气计算</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Nov 2015 18:27:31 +0800</lastBuildDate>
+    <atom:link href="http://newoxygen.github.io/tags/hyde/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>hugo快速建站</title>
+      <link>http://newoxygen.github.io/post/hugo%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%AB%99/</link>
+      <pubDate>Sun, 15 Nov 2015 18:27:31 +0800</pubDate>
+      
+      <guid>http://newoxygen.github.io/post/hugo%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%AB%99/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;本来想直接研究hugo的theme结构和相关配置的，但是自己在Github Pages上建站的过程中尽管参考了其他人的教程，还是有过一些错误，导致了一些问题，因此想再用自己的话梳理一下过程和方法，强调一下容易出错的地方，尽量追求全而细，让能看到这篇文章的人，不管有没有编程方面的经验都能够实践成功。来吧，让我们使用windows+msysgit+Github+hugo来实现自己的个性化页面。相关软件打包：&lt;a href=&#34;http://pan.baidu.com/s/1sjpE3dr&#34;&gt;百度云&lt;/a&gt;，提取码：&lt;code&gt;aca1&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#1&#34;&gt;1.准备工作&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#1.1&#34;&gt;1.1 msysGit客户端&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#1.2&#34;&gt;1.2 注册Github&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#1.3&#34;&gt;1.3 Windows本地配置Git&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#1.4&#34;&gt;1.4 使用hugo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2&#34;&gt;2.正式建立静态网站&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#2.1&#34;&gt;2.1 新建文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2.2&#34;&gt;2.2 安装皮肤&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2.3&#34;&gt;2.3 运行hugo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2.4&#34;&gt;2.4 简单配置&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3&#34;&gt;3.高级配置&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#3.1&#34;&gt;3.1 多说评论&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3.2&#34;&gt;3.2 代码高亮&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#4&#34;&gt;4.后记&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;1&#34;&gt;1.准备工作&lt;/h2&gt;
+                                                                              
+
+&lt;p&gt;&lt;h3 id=&#34;1.1&#34;&gt;1.1 msysGit客户端&lt;/h3&gt;
+在Windows下默认是没有预装Git的，如果你是Mac和Linux的用户则没有这个烦恼，因此我们首先需要在Windows系统下安装一个Git软件，笔者使用的是&lt;a href=&#34;https://git-for-windows.github.io/&#34;&gt;msysGit&lt;/a&gt;，截止发文最新的版本是2.6.3，官网Download会自动识别系统（32位和64位）下载，之后一个个步骤按照向导安装就行，上面英文写的很清楚，基本可以按照默认的来，但是到了Ajusting your PATH environment（即设置环境变量）这一步时，建议还是勾选第二项Run Git from Windows Command Prompt，这样在Windows命令行中就可以全局使用Git相关命令。&lt;/p&gt;
+
+&lt;p&gt;&lt;h3 id=&#34;1.2&#34;&gt;1.2 注册Github&lt;/h3&gt;
+点击&lt;a href=&#34;https://github.com/&#34;&gt;Github官网&lt;/a&gt;进入Github首页，这样你能够进行注册，输入用户名、Email地址、密码即可进行注册，我们选择不需要花钱的Free类型用户，点击Finish sign up，这样即可完成注册，此时在页面顶部Bootcamp系统会提示你接下来可以做哪些事情，而我们首先需要做的就是Create Repositories，我们可以点击这一项进去看看教程，当然也可以根据我下面的提示直接开始：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;点击右侧New repository（新建仓库），此时系统会提示你验证邮箱，你需要去刚刚注册用的邮箱验证地址；&lt;/li&gt;
+&lt;li&gt;验证完毕即可重新New reository，用户名一定要用：&lt;code&gt;你的注册用户名.github.io&lt;/code&gt;，其他无需修改，然后点击Create repository即可;&lt;/li&gt;
+&lt;li&gt;下面自动进入一个快速设置页面，告诉我们如何在仓库内添加东西，这就需要在Windows本地设置了。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;h3 id=&#34;1.3&#34;&gt;1.3 Windows本地配置Git&lt;/h3&gt;
+本文开篇就说了Windows下的Git程序，但是没有做配置，还是不能用的，这里解说下基本的配置：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先打开Git Bash做些全局设置：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git config --global user.name &amp;quot;你的注册用户名&amp;quot;
+git config --global user.email &amp;quot;你的邮箱&amp;quot;
+git config --global color.ui auto
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;设置SSH Key：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ssh-keygen -t rsa -C &amp;quot;你的邮箱&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后会要求输入存储id_rsa的目录，接着是输入密码，这个密码可以与github的不同，过程中确认即可，最后会出现一个随机图形，说明生成SSH密匙成功，这样我们需要到刚刚的存储目录下打开id_rsa.pub复制里面的内容，到你的github页面上-&amp;gt;点击右上角头像旁三角-&amp;gt;settings-&amp;gt;SSH keys-&amp;gt;add SSH key-&amp;gt;黏贴刚刚复制的内容保存。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;h3 id=&#34;1.4&#34;&gt;1.4 使用hugo&lt;/h3&gt;
+&lt;a href=&#34;http://www.gohugo.io/&#34;&gt;hugo&lt;/a&gt;是一个快速的静态网站引擎，使用Go语言开发，可以用Markdown格式的文章生成一个完整的静态网站，然后托管到自己的&lt;code&gt;用户名.Github.io&lt;/code&gt;的Github仓库中，实现一个静态站点，一般用于博客或者项目主页等。那么我们先来了解下如何获取和使用：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;先从&lt;a href=&#34;https://github.com/spf13/hugo/releases&#34;&gt;官网下载&lt;/a&gt;相关的版本，比如我是32位windows系统的，我下载hugo_0.14_windows_386.zip；&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;解压缩后，将里面的exe文件重命名为hugo.exe，并放在&lt;code&gt;C:\hugo\hugo.exe&lt;/code&gt;即可；&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;添加环境变量：我的电脑-属性-高级系统设置-环境变量，编辑PATH，加入&lt;code&gt;;C:\hugo&lt;/code&gt;,用英文分号与之前的内容分割开。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;这样我们可以测试下环境是否正常：
+使用Windows命令行（Win+R输入cmd）输入下列命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd C:\hugo
+hugo new site www
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;进入hugo目录下可以看到一个www的文件夹，就是刚刚新建的站点，目录的结构是：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;▸ archetypes/
+▸ content/
+▸ layouts/
+▸ static/
+  config.toml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;尽管里面没有任何内容，但是恭喜你，说明程序可以正常使用了。&lt;/p&gt;
+
+&lt;p&gt;&lt;h2 id=&#34;2&#34;&gt;2.正式建立静态网站&lt;/h2&gt;
+&lt;h3 id=&#34;2.1&#34;&gt;2.1 新建文章&lt;/h3&gt;
+首先需要先命令行进入www文件夹下，然后输入以下命令，创建一个关于页面：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new about.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样就生成楼www/content/about.md，打开该文件可以看到以下信息：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+++
+date = &amp;quot;2015-11-15T10:42:51+08:00&amp;quot;
+draft = true
+title = &amp;quot;about&amp;quot;
+
++++
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;文件是md的，但是+++之间的内容是用TOML编写的文档信息，date代表文档创建的时间，后面的+08：00代表的时区，draft代表草稿，如果生成网站时不加入特殊说明是不生成该页的，title是这篇文章的标题，因此正文中不需要自己再写标题了。
+为了方便之后生成聚合页面，我们继续在www/content/post/目录生成第一篇文章：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo new post/first.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打开first.md文件可以看到以下内容，跟上面的about.md差不多，我们在+++后面编辑一点内容并保存：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+++
+date = &amp;quot;2015-11-15T10:48:56+08:00&amp;quot;
+draft = true
+title = &amp;quot;first&amp;quot;
+
++++
+# My first blog
+1. aaa
+2. bbb
+3. ccc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;h3 id=&#34;2.2&#34;&gt;2.2 安装皮肤&lt;/h3&gt;
+hugo有很多&lt;a href=&#34;https://github.com/spf13/hugoThemes&#34;&gt;皮肤(Github)&lt;/a&gt;,也可以看&lt;a href=&#34;http://www.gohugo.org/theme/&#34;&gt;这里(中文)&lt;/a&gt;,可以找到喜欢的皮肤地址，然后在www文件夹下创建一个themes文件夹，在命令行中进入该文件夹后用git的方法获得皮肤(笔者这里使用hyde这个简单点的皮肤主题)：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone http://github.com/spf13/hyde.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;h3 id=&#34;2.3&#34;&gt;2.3 运行hugo&lt;/h3&gt;
+在站点根目录www文件夹下运行hugo调试命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo server --theme=hyde --buildDrafts --watch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;theme指明使用的主题名称（themes文件夹下的主题文件夹名称），buildDrafts指出编译草稿部分（即draft=true的文件），watch参数可以在文件修改时实时自动刷新页面。生成后我们可以在按照命令行提示在浏览器中输入&lt;a href=&#34;http://127.0.0.1:1313&#34;&gt;http://127.0.0.1:1313&lt;/a&gt;查看页面，正常的话显示如下：
+&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fabd8356f.jpg&#34; alt=&#34;hyde1.jpg&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;h3 id=&#34;2.4&#34;&gt;2.4 简单配置&lt;/h3&gt;
+目前为止，已经生成一个简单的静态站点，但是还有很多地方需要修改，以适应每个人的需求，可以在www站点根目录下看到一个&lt;code&gt;config.toml&lt;/code&gt;配置文件，该文件使用TOML语法编写，基本内容如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;baseurl = &amp;quot;http://replace-this-with-your-hugo-site.com/&amp;quot;
+languageCode = &amp;quot;en-us&amp;quot;
+title = &amp;quot;My New Hugo Site&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以修改成类似这样的：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;baseurl = &amp;quot;http://newoxygen.github.io/&amp;quot;#name of your repository
+languageCode = &amp;quot;en-us&amp;quot;
+title = &amp;quot;氧气计算&amp;quot;#title of your page
+theme = &amp;quot;hyde&amp;quot;#default theme
+
+[params]
+    description = &amp;quot;CC博客，信奉望远镜与显微镜的哲学&amp;quot;#simple description on page
+    themeColor = &amp;quot;theme-base-08&amp;quot; # for hyde theme
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新根目录运行&lt;code&gt;hugo server --theme=hyde --buildDrafts --watch&lt;/code&gt;看看效果：
+&lt;img src=&#34;https://ooo.0o0.ooo/2015/11/14/5647fffd5519a.jpg&#34; alt=&#34;hyde2.jpg&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;h2 id=&#34;3&#34;&gt;3.高级配置&lt;/h2&gt;
+由于之前已经设置默认主题，我们再来用&lt;code&gt;hugo new post/sencond.md&lt;/code&gt;新建一篇文章看看有什么区别：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+++
+Categories = [&amp;quot;Development&amp;quot;, &amp;quot;GoLang&amp;quot;]
+Description = &amp;quot;&amp;quot;
+Tags = [&amp;quot;Development&amp;quot;, &amp;quot;golang&amp;quot;]
+date = &amp;quot;2015-11-15T11:53:15+08:00&amp;quot;
+menu = &amp;quot;main&amp;quot;
+title = &amp;quot;second&amp;quot;
+
++++
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看出多了Categories、Description、Tags和menu几个格式化选项，顾名思义，我们可以为文章分类、添加简单描述、添加标签，menu = &amp;ldquo;main&amp;rdquo;代表在左侧home下面显示标题并连接，我们可以把之前创建的about.md文件里加上这句，然后在里面写一些个人简介，这样别人就可以简单点击左侧连接查看你的简介了。介绍完一些有用的配置，我们接着来学习2个高级技巧。&lt;/p&gt;
+
+&lt;p&gt;&lt;h3 id=&#34;3.1&#34;&gt;3.1 多说评论&lt;/h3&gt;
+hyde主题默认使用disqus插件，是国外的一种使用javascript编写的评论插件，可以用来嵌入页面中实现静态网页的评论功能，可以直接在&lt;code&gt;config.toml&lt;/code&gt;文件中&lt;code&gt;[params]&lt;/code&gt;下加入&lt;code&gt;disqusShortname = &amp;quot;你的disqus用户名&amp;quot;&lt;/code&gt;，当然前提是你自己去disqus网站注册一个个人账户。国人的模仿能力是无限的，因此也有替代的国内版本&lt;a href=&#34;http://duoshuo.com/&#34;&gt;多说&lt;/a&gt;，可以注册一个多说账号，进入后台管理，有一段需要我们嵌入页面的代码，我们需要将&lt;code&gt;www/themes/hyde/layouts/partials/disqus.html&lt;/code&gt;文件重命名为&lt;code&gt;duoshuo.html&lt;/code&gt;然后打开文件修改成如下形式并保存：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!-- 多说评论框 start --&amp;gt;
+&amp;lt;div class=&amp;quot;ds-thread&amp;quot; data-thread-key=&amp;quot;{{ .URL }}&amp;quot; data-title=&amp;quot;{{ .Title }}&amp;quot; data-url=&amp;quot;{{ .Permalink }}&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;!-- 多说评论框 end --&amp;gt;
+
+&amp;lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&amp;gt;
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
+    var duoshuoQuery = {short_name:&amp;quot;{{.Site.Params.duoshuoShortname}}&amp;quot;};
+
+    (function() {
+     var ds = document.createElement(&#39;script&#39;);
+     ds.type = &#39;text/javascript&#39;;ds.async = true;
+     ds.src = (document.location.protocol == &#39;https:&#39; ? &#39;https:&#39; : &#39;http:&#39;) + &#39;//static.duoshuo.com/embed.js&#39;;
+     ds.charset = &#39;UTF-8&#39;;
+     (document.getElementsByTagName(&#39;head&#39;)[0]
+      || document.getElementsByTagName(&#39;body&#39;)[0]).appendChild(ds);
+     })();
+    &amp;lt;/script&amp;gt;
+&amp;lt;!-- 多说公共JS代码 end --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后在&lt;code&gt;www/themes/hyde/layouts/_default/single.html&lt;/code&gt;文件中替换如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{{ if and (isset .Site.Params &amp;quot;disqusShortname&amp;quot;) (ne .Site.Params.disqusShortname &amp;quot;&amp;quot;) }}
+            &amp;lt;h2&amp;gt;评论&amp;lt;/h2&amp;gt;
+            {{ partial &amp;quot;disqus&amp;quot; . }}
+        {{ end }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后在&lt;code&gt;www/config.toml&lt;/code&gt;文件中的&lt;code&gt;[params]&lt;/code&gt;下加入&lt;code&gt;duoshuoShortname = &amp;quot;你的多说用户名&amp;quot;&lt;/code&gt;，这样我们再次调试站点可以看到每篇文章的下面都有一个多说评论框，其他人可以使用这个评论框评论文章。&lt;/p&gt;
+
+&lt;p&gt;&lt;h3 id=&#34;3.2&#34;&gt;3.2 代码高亮&lt;/h3&gt;
+官方推荐使用Pygments来进行代码高亮的支持，我使用了&lt;a href=&#34;http://tonybai.com/2015/09/23/intro-of-gohugo/&#34;&gt;Tony Bai&lt;/a&gt;推荐的[highlight.js][10],用起来很顺手，目前最新的版本是8.9.1,只要下载常用代码的高亮支持即可，是一个zip的压缩文件包，内容如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;▸ styles/
+  CHANGES.MD
+  highlight.pack.js
+  LICENSE
+  README.md
+  README.ru.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我一般会把highlight.pack.js改成highlight.js方便调用，styles目录下有很多不同类型的高亮方式，都是css文件。接下来把highlight.js文件放到www/themes/hyde/static/js/目录下，没有目录自己建；把需要的哪种风格的css文件放到www/themes/hyde/static/css目录下。接着在www/themes/hyde/layouts/partials/head.html文件中插入如下内容：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!-- Highlight.js and css --&amp;gt;
+&amp;lt;script src=&amp;quot;{{ .Site.BaseURL }}js/highlight.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;{{ .Site.BaseURL }}css/monokai.css&amp;quot;&amp;gt;
+&amp;lt;script&amp;gt;hljs.initHighlightingOnLoad();&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因为个人比较喜欢monokai风格，所以用了monokai.css，相应的要把monokai.css复制到刚刚说的css目录下，你也可以根据自己的喜好选择其他的风格。当你再次调试站点查看时如果内容中有代码可以发现代码已经被着色，更加清楚明了。&lt;/p&gt;
+
+&lt;p&gt;&lt;h2 id=&#34;4&#34;&gt;4.将本地站点上传&lt;/h2&gt;
+之前第一节已经注册好Github并创建软件仓库，现在我们需要生成最终的页面并上传到自己的Github仓库中，完成站点的最终部署，只需要在www根目录输入：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo
+或没有配置好config.toml文件的话用：
+hugo --thmem=hyde --baseUrl=&amp;quot;http://用户名.github.io&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样在www目录下会生成一个public文件夹用于发布正式的站点，进行下列操作上传所有文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd public
+git init
+git remote add origin https://github.com/用户名/用户名.github.io.git
+git add -A
+git commit -m &amp;quot;first commit&amp;quot;
+git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;过程中会要求用户输入github的用户名和密码，密码是隐式的，所以别以为没输入。上传成功后，只要在浏览器中输入http://用户名.github.io即可访问你自己的站点了。&lt;/p&gt;
+
+&lt;p&gt;&lt;h2 id=&#34;4&#34;&gt;4.后记&lt;/h2&gt;
+之前想自己写博客，觉得自己搭建东西放心点，就在网上搜索了相关方法，最后锁定到hugo这个软件，花了一个晚上熟悉网上各位大神的说明文档，自己一步步搭建起来的，后面用了一个上午的时间写了这篇文章总结了自己搭建的方法和过程，如有问题还望评论提问，如有错误一并指正。&lt;/p&gt;
+
+&lt;p&gt;[10]:&lt;a href=&#34;https://highlightjs.org/&#34;&gt;https://highlightjs.org/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

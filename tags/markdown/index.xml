@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Markdown on 氧气计算</title>
+    <link>http://newoxygen.github.io/tags/markdown/</link>
+    <description>Recent content in Markdown on 氧气计算</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 13 Nov 2015 11:33:53 +0800</lastBuildDate>
+    <atom:link href="http://newoxygen.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>利用mistune解析markdown</title>
+      <link>http://newoxygen.github.io/post/%E5%88%A9%E7%94%A8mistune%E8%A7%A3%E6%9E%90markdown/</link>
+      <pubDate>Fri, 13 Nov 2015 11:33:53 +0800</pubDate>
+      
+      <guid>http://newoxygen.github.io/post/%E5%88%A9%E7%94%A8mistune%E8%A7%A3%E6%9E%90markdown/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;最近新学&lt;a href=&#34;http://daringfireball.net/projects/markdown/&#34;&gt;Markdown&lt;/a&gt;和&lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt;，一个用于写作，一个用于编程，都十分顺手，因此想学一下怎样用Python实现对Markdown语法的解析。在Github上搜索到一个项目：&lt;a href=&#34;https://github.com/lepture/mistune&#34;&gt;mistune&lt;/a&gt;。该项目使用纯Python实现了Markdown语法到HTML的解析，号称很快速，项目主页上有它与其他Python解析器的性能对比，我没有尝试，有兴趣的可以做些基准测试。本篇描述的是怎样利用mistune来实现对Markdown的解析，以下正是我学习和实践的过程。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;第一步-初识:3b77fec813f87b3e259355ab06e2f0df&#34;&gt;第一步：初识&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://mistune.readthedocs.org/en/latest/&#34;&gt;mistune项目文档&lt;/a&gt;对mistune的 &lt;em&gt;特性&lt;/em&gt; 、 &lt;em&gt;安装方法&lt;/em&gt; 、 &lt;em&gt;基本用法&lt;/em&gt; 和 &lt;em&gt;高级用法&lt;/em&gt; 等都有详细描述，在此不再赘述太多，使用前需要从&lt;a href=&#34;https://github.com/lepture/mistune&#34;&gt;主页&lt;/a&gt;下载&lt;code&gt;mistune.py&lt;/code&gt;文件，基本的使用方法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#test.py
+import mistune
+mk = mistune.Markdown()
+output = mk(&#39;I am using **mistune markdown parser**&#39;)
+print(output)
+#这段代码将会输出：&amp;lt;p&amp;gt;I am using &amp;lt;strong&amp;gt;mistune markdown parser&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意，&lt;code&gt;test.py&lt;/code&gt;文件需要和&lt;code&gt;mistune.py&lt;/code&gt;文件在同一个目录下，否则Python不能正常&lt;code&gt;import mistune&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;第二步-根据源文件自动生成html文档:3b77fec813f87b3e259355ab06e2f0df&#34;&gt;第二步：根据源文件自动生成HTML文档&lt;/h2&gt;
+
+&lt;p&gt;在理解了第一步基本的使用方法后，我考虑自己写一个脚本调用&lt;code&gt;mistune&lt;/code&gt;模块，并通过Python文件操作读取源文件（&lt;code&gt;.md&lt;/code&gt;文件），并自动生成HTML文档（&lt;code&gt;preview.html&lt;/code&gt;），于是写了第一个简短的脚本：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#md2html.py
+import mistune
+mk = mistune.Markdown()
+with open(&#39;input.md&#39;,&#39;r&#39;) as f:
+    s = f.read()
+html = mk(s)
+with open(&#39;preview.html&#39;,&#39;w&#39;) as f:
+    f.write(html)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样，只要&lt;code&gt;md2html.py&lt;/code&gt;和&lt;code&gt;mistune.py&lt;/code&gt;在同一目录下，该脚本就可以根据&lt;code&gt;input.md&lt;/code&gt;文件中Markdown语法书写的内容自动生成一个&lt;code&gt;preview.html&lt;/code&gt;文件，当然，前提是你在同一个目录下提前写好一个符合Markdown语法要求的&lt;code&gt;input.md&lt;/code&gt;文档。&lt;/p&gt;
+
+&lt;p&gt;可以看出，以上脚本尽管简单地实现了目的，但是问题多多，且使用上不灵活，总结有以下几个缺点：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;只能在&lt;code&gt;input.md&lt;/code&gt;文件里提前写好内容才能转成HTML文档，使用上不灵活；&lt;/li&gt;
+&lt;li&gt;没有异常处理机制，脚本不健壮，假如没有提前创建&lt;code&gt;input.md&lt;/code&gt;，将报错：&lt;code&gt;FileNotFoundError&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;缺少提示符，用户界面不友好；&lt;/li&gt;
+&lt;li&gt;不能自动调用浏览器预览生成的HTML文档，不直观。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;第三步-改进:3b77fec813f87b3e259355ab06e2f0df&#34;&gt;第三步：改进&lt;/h2&gt;
+
+&lt;p&gt;鉴于之前的脚本存在各种缺点，我对脚本进行了改进：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#python3 code
+#md2html.py
+import sys
+import mistune
+import webbrowser
+
+#Count the number of command line parameters to find the path of md file
+lenArgv = len(sys.argv)
+if lenArgv == 1:
+    url = input(&#39;Please input the path of md file:&amp;gt;&#39;)
+elif lenArgv == 2:
+    url = sys.argv[1]
+else:
+    url = input(&#39;You can only input a single path:&amp;gt;&#39;)
+
+mk = mistune.Markdown()
+
+#Exception handling:Avoid FileNotFoundError
+while True:
+    try:
+        with open(url,&#39;r&#39;) as f:
+            s = f.read()
+        break
+    except FileNotFoundError:
+        url = input(&#39;Not Found,Input the path again:&amp;gt;&#39;)
+
+html = mk(s)
+with open(&#39;preview.html&#39;,&#39;w&#39;) as f:
+    f.write(html)
+
+#End of run,open preview.html automatically by default browser
+print(&#39;preview.html is generated successfully!&#39;)
+webbrowser.open(&#39;preview.html&#39;)
+input()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改进版脚本说明：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;通过&lt;code&gt;import sys&lt;/code&gt;实现了对命令行参数的判断，可以用&lt;code&gt;python md2html.py &amp;lt;可缺省的源文件路径&amp;gt;&lt;/code&gt;进行调用，也可以直接运行&lt;code&gt;md2html.py&lt;/code&gt;文件后输入源文件路径进行调用，比之前的程序更加灵活；&lt;/li&gt;
+&lt;li&gt;通过异常处理程序判断用户输入的路径是否正确，避免了程序的崩溃，增强了健壮性；&lt;/li&gt;
+&lt;li&gt;每一步都引入了提示符，便于用户使用时的理解，界面更友好；&lt;/li&gt;
+&lt;li&gt;通过&lt;code&gt;import webbrowser&lt;/code&gt;实现html文件生成后的自动预览，更加直观。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;写在后面:3b77fec813f87b3e259355ab06e2f0df&#34;&gt;写在后面&lt;/h2&gt;
+
+&lt;p&gt;本文旨在提供一种学习思路，只是个人的想法，如有不正确的地方，还希望多多留言指正！另外Python编码风格的问题和写作方法的问题也请一起斧正，谢谢！使用中发现mistune这个模块对Markdown语法的解析并不完美，具体解析以下Markdown语法的时候即可发现：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#test.md
+*  unordered list
+1. ordered list
+1. other
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
